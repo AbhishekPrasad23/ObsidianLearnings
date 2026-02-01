@@ -1,0 +1,1 @@
+@**ConditionalOn**- the _@ConditionalOnProperty_ enables bean registration only if an environment property is present and has a specific value. By default, the specified property must be defined and not equal to _false_.
