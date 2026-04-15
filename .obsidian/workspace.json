@@ -4,345 +4,25 @@
     "type": "split",
     "children": [
       {
-        "id": "0cc0a3012c814bd5",
+        "id": "6a142758919677b3",
         "type": "tabs",
         "children": [
           {
-            "id": "686ffb5eddc25a13",
+            "id": "54176e824f64bd95",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Interview/Sorting algos.md",
+                "file": "Interesting stuff/Git Commands.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Sorting algos"
-            }
-          },
-          {
-            "id": "8120a9d0b73fbcb0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/Priority Queue.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Priority Queue"
-            }
-          },
-          {
-            "id": "57d641c86b86e45b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/StringBuilder.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "StringBuilder"
-            }
-          },
-          {
-            "id": "8819a548358d2120",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/JDK,JRE,JVM.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "JDK,JRE,JVM"
-            }
-          },
-          {
-            "id": "652df72646959948",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/JDK,JRE,JVM,Java version features.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "JDK,JRE,JVM,Java version features"
-            }
-          },
-          {
-            "id": "bd8bd48ebe145790",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interesting stuff/What happens after typing url.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "What happens after typing url"
-            }
-          },
-          {
-            "id": "158da273da937bae",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Sorting algos.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Sorting algos"
-            }
-          },
-          {
-            "id": "2b28844ddf4666c0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Java Design Patterns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Java Design Patterns"
-            }
-          },
-          {
-            "id": "53d92822b4e47922",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/LRU Cache.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LRU Cache"
-            }
-          },
-          {
-            "id": "5766f9262072ee12",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/CompletableFuture.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "CompletableFuture"
-            }
-          },
-          {
-            "id": "8a147dc65e0ac750",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Java Design Patterns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Java Design Patterns"
-            }
-          },
-          {
-            "id": "8265fede3337b2c7",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.8.10"
-              },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.8.10"
-            }
-          },
-          {
-            "id": "4e461460909d366a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/@DataJPATest.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "@DataJPATest"
-            }
-          },
-          {
-            "id": "d7b91db04eba69e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/SpringBootTest.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "SpringBootTest"
-            }
-          },
-          {
-            "id": "6145dfefbca367a3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/MockitoBean.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "MockitoBean"
-            }
-          },
-          {
-            "id": "89873420406d5227",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/WebMvcTest.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "WebMvcTest"
-            }
-          },
-          {
-            "id": "f90af3d37af0c668",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/ObjectMapper.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "ObjectMapper"
-            }
-          },
-          {
-            "id": "b2df1df3c634ec34",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/WebMvcTest.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "WebMvcTest"
-            }
-          },
-          {
-            "id": "eb564dd9addf7503",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java Misc/triple double quotes.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "triple double quotes"
-            }
-          },
-          {
-            "id": "7f5b21c1192fc29e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Sorting algos.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Sorting algos"
-            }
-          },
-          {
-            "id": "bdfbbc14966b5ec6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Creational Java Design Patterns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Creational Java Design Patterns"
-            }
-          },
-          {
-            "id": "03717a11344493b1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Structural Design patterns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Structural Design patterns"
-            }
-          },
-          {
-            "id": "0630f4bea5b69f8f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Interview/Structural Design patterns.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Structural Design patterns"
-            }
-          },
-          {
-            "id": "062c60966867f766",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Spring Boot/Eureka and OpenFeign.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Eureka and OpenFeign"
+              "title": "Git Commands"
             }
           }
         ],
-        "currentTab": 23
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -482,6 +162,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -490,35 +171,43 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "1f4f9f98937f686a",
+  "active": "54176e824f64bd95",
   "lastOpenFiles": [
-    "ObsidianLearnings",
-    "Java Misc/Java Exception Hierarchy.md",
-    "Java Misc/Misc.md",
-    "Spring Boot/Eureka and OpenFeign.md",
-    "Java Misc/Memory Leak causes in Java.md",
-    "Java Misc/Priority Queue.md",
-    "Java Misc/Weak vs Identity HashMap.md",
-    "Java Misc/StringBuilder.md",
-    "Java Misc/Garbage Collection in Java.md",
-    "Interview/System Design.md",
-    "Interview/Structural Design patterns.md",
+    "DevOps/Linux.md",
+    "Interesting stuff/Git Commands.md",
+    "DevOps/Kubernetes.md",
+    "Pasted image 20260407175857.png",
+    "multi-container.md",
     "Interview/REST API.md",
-    "Spring Boot/@DataJPATest.md",
+    "Interview/How to Identify a DP Problem.md",
     "Spring Boot/Circular Dependencies.md",
-    "Spring Boot/Rate Limiting.md",
+    "Spring Boot/Interview Questions.md",
+    "Interview/System Design.md",
+    "Java Misc/Misc.md",
+    "System Design/Interview Questions.md",
+    "Interview/Networking.md",
+    "DevOps/Terraform.md",
+    "System Design/Important links.md",
+    "System Design/Case Studies.md",
+    "Interview/CAP theorem.md",
+    "System Design/CQRS.md",
+    "System Design/Cookies vs Sessions.md",
+    "SpringBoot interview questions.md",
+    "Pasted image 20250928005331.png",
+    "Pasted image 20250928005324.png",
+    "LinkedIn links.md",
+    "Interview.md",
+    "API fails in production.md",
+    "Apache Kafka.md",
+    "System Design/P99.md",
+    "System Design/Kafka.md",
+    "System Design",
+    "Spring Boot/Spring Boot Application Lifecycle Phases.md",
+    "LinkedIn Material",
+    "Untitled 1.base",
+    "Untitled.base",
+    "ObsidianLearnings",
     "Java Misc/Untitled.canvas",
-    "Spring Boot/Bean.md",
-    "Interesting stuff/Proxy vs Reverse Proxy vs Load balancer.md",
-    "Java Misc/CompletableFuture.md",
-    "Java Misc/triple double quotes.md",
-    "Java Misc/FilterChain.md",
-    "Java Misc/Functional Interfaces.md",
-    "Java Misc/JDK,JRE,JVM,Java version features.md",
-    "Spring Boot/Spring Profiles.md",
-    "Interview/Creational Java Design Patterns.md",
-    "Interview/LRU Cache.md",
-    "Spring Boot/Transaction management.md",
     "DevOps",
     "Spring Boot/Untitled.canvas",
     "Spring Boot",
