@@ -80,6 +80,7 @@ When to Choose Which?
 
   
 
+<<<<<<< HEAD
 The **thundering herd problem** is ==a major performance issue where many processes or threads wake up simultaneously to access a resource (like a database or cache), but only one can succeed, causing massive contention, wasted resources (CPU cycles), and potential system collapse as they all fight for the single resource==. It often happens after a shared resource becomes available, like a cache key expiring, leading to a "[cache stampede](https://www.google.com/search?sca_esv=f5dfd2a34bf4e47a&sxsrf=ANbL-n4HwqlmchdsmmbQmrZwcIPGlR5txg%3A1770489088929&q=cache+stampede&sa=X&ved=2ahUKEwistOXpgciSAxXeh68BHQGyFJoQxccNegQIFRAB&mstk=AUtExfCglFV0tQx2mGu3-35u1S3ttA1u66WTcF2qUwpD9MaRbZ4m6f_MUhKe83oQbwD7TPFYgQ3c-hOTX-lmqLFaQ0Y2U0cQWIGhwQyj3euqcQJGnuOe5YsuGlWjI5DRxOmMXsc&csui=3)," where thousands of requests hit the database at once instead of the cache. Solutions involve staggering wake-ups (jitter), locking, or using specialized caches to ensure only one process truly gets the resource.
 How it happens (Example: Cache Miss)
 
@@ -255,3 +256,5 @@ Massive memory overhead + network transfer.
   
 𝗙𝗶𝘅: Explicit column selection.  
 Payload: 12KB → 0.8KB.
+=======
+>>>>>>> 314900666ff55ba79d92cbfa980259ae986504b2

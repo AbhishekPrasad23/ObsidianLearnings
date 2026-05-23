@@ -1,3 +1,19 @@
+
+| 1   | [[#The 4 Pillars of Object-Oriented Programming (OOP) - Brief Overview]] |
+| --- | ------------------------------------------------------------------------ |
+| 2   | [[#**Method Hiding in Java Purpose & Usage**]]                           |
+| 3   | [[#**Method Hiding vs. Method Overriding**]]                             |
+| 4   | [[#CascadeType.ALL vs orphanRemoval = true]]                             |
+| 5   | [[#Sealed Classes]]                                                      |
+| 6   | [[#Java Collections tricks]]                                             |
+| 7   | [[#@JsonIgnore vs @Transient]]                                           |
+| 8   | [[#Reflection API]]                                                      |
+| 9   | [[#Stream Gatherer's]]                                                   |
+|     |                                                                          |
+|     |                                                                          |
+
+
+
 # The 4 Pillars of Object-Oriented Programming (OOP) - Brief Overview
 
 ## 1. **Encapsulation**
@@ -280,7 +296,7 @@ If you’ve worked with Spring, you’ve probably used both — but do you know 
 Great question—this is a common topic in JPA/Hibernate interviews, and understanding the distinction can really sharpen your backend development skills.
 
 ---
-
+# CascadeType.ALL vs orphanRemoval = true
 ### 🔄 CascadeType.ALL
 
 - **Purpose**: Automatically propagates all JPA operations (like `persist`, `merge`, `remove`, `refresh`, `detach`) from a parent entity to its child entities.
@@ -378,6 +394,7 @@ Let me know if you’d like a real-world example or a diagram to visualize this!
 
 ---
 
+<<<<<<< HEAD
 Your JVM has 4GB of heap. Your app can only use about 2.5GB. Here's where the rest goes.  
   
 Most developers think JVM memory = heap. It's not. The heap is just one piece.  
@@ -408,3 +425,743 @@ The fix:
 → Monitor non-heap: /actuator/metrics/jvm.memory.used?tag=area:nonheap  
   
 OOMKilled doesn't always mean your app used too much memory. Sometimes it means the JVM did.
+=======
+>>>>>>> 314900666ff55ba79d92cbfa980259ae986504b2
+
+
+---
+# Sealed Classes
+
+## What is a Sealed Class in Java?
+
+A sealed class restricts which other classes or interfaces can inherit from it. This ensures a controlled and predictable inheritance hierarchy.
+
+**Key Benefits**
+
+- Provides controlled inheritance
+- Enhances security and maintainability
+- Improves code readability
+- Enables better pattern matching and exhaustiveness checks
+- Prevents unauthorized subclassing
+
+## **Syntax**
+
+All permitted subclasses must be declared as final, sealed, or non-sealed and should reside in the same module or package.
+
+sealed class Vehicle permits Car, Truck, Bike {  
+}
+
+- sealed restricts inheritance.
+- permits specifies the allowed subclasses.
+- Only the listed classes can extend Vehicle.
+
+Basic Sealed Class
+
+sealed class Vehicle permits Car, Truck {  
+  
+    void start() {  
+        System.out.println("Vehicle is starting...");  
+    }  
+}  
+  
+final class Car extends Vehicle {  
+}  
+  
+final class Truck extends Vehicle {  
+}  
+  
+public class TestSealed {  
+    public static void main(String[] args) {  
+        Vehicle v = new Car();  
+        v.start();  
+    }  
+}
+
+Output
+
+Vehicle is starting...
+
+## **Permitted Subclass Modifiers**
+
+Every subclass of a sealed class must declare one of the following modifiers.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:875/1*H84d1RrGCNgdzQj3KJGc1g.png)
+
+## Using sealed, final, and non-sealed
+
+sealed class Shape permits Circle, Rectangle, Triangle {  
+}  
+  
+// Cannot be extended further  
+final class Circle extends Shape {  
+}  
+  
+// Allows only specific subclasses  
+sealed class Rectangle extends Shape permits Square {  
+}  
+  
+final class Square extends Rectangle {  
+}  
+  
+// Allows unrestricted inheritance  
+non-sealed class Triangle extends Shape {  
+}  
+  
+class RightTriangle extends Triangle {  
+}
+
+## Sealed Interfaces
+
+Sealed behaviour can also be applied to interfaces.
+
+sealed interface Payment permits CreditCard, PayPal, Cash {  
+}  
+  
+final class CreditCard implements Payment {  
+}  
+  
+final class PayPal implements Payment {  
+}  
+  
+final class Cash implements Payment {  
+}
+
+Sealed interfaces are widely used in designing secure APIs and domain models.
+
+Go through this real-world example and try to get the output.
+
+sealed class Employee permits Manager, Developer, Intern {  
+    abstract void work();  
+}  
+  
+final class Manager extends Employee {  
+    void work() {  
+        System.out.println("Managing the team.");  
+    }  
+}  
+  
+final class Developer extends Employee {  
+    void work() {  
+        System.out.println("Writing code.");  
+    }  
+}  
+  
+final class Intern extends Employee {  
+    void work() {  
+        System.out.println("Learning and assisting.");  
+    }  
+}  
+  
+public class Company {  
+    public static void main(String[] args) {  
+        Employee emp = new Developer();  
+        emp.work();  
+    }  
+}
+
+Output
+
+Writing code.
+
+## Sealed Classes with Pattern Matching (Java 17+)
+
+Sealed classes work seamlessly with modern switch expressions, enabling exhaustive checks.
+
+sealed interface Shape permits Circle, Square {}  
+  
+record Circle(double radius) implements Shape {}  
+record Square(double side) implements Shape {}  
+  
+public class ShapeTest {  
+    public static void main(String[] args) {  
+        Shape shape = new Circle(5);  
+  
+        String result = switch (shape) {  
+            case Circle c -> "Circle with radius " + c.radius();  
+            case Square s -> "Square with side " + s.side();  
+        };  
+  
+        System.out.println(result);  
+    }  
+}
+
+Output
+
+Circle with radius 5.0
+
+_Note:_ Pattern matching for switch became a standard feature in Java 21.
+
+Press enter or click to view image in full size
+
+![](https://miro.medium.com/v2/resize:fit:875/1*7mBZgufI-JGIi4xFzxkHAA.png)
+
+
+
+## Common Mistakes to Avoid
+
+- Forgetting to specify the **permits** clause.
+- Not declaring subclasses as **final**, **sealed**, or **non-sealed**.
+- Attempting to extend a sealed class without permission.
+- Placing permitted subclasses in different modules without proper configuration.
+- Using sealed classes in Java versions earlier than Java 17.
+- Misunderstanding the difference between final and sealed.
+
+## Best Practices
+
+- Use sealed classes to model **fixed and controlled hierarchies**.
+- Prefer sealed types in **domain-driven design (DDD)**.
+- Combine sealed classes with **records** for immutable data models.
+- Use them with **pattern matching** for cleaner and safer code.
+- Keep permitted subclasses logically related.
+- Document your sealed hierarchies for maintainability.
+
+---
+# Java Collections tricks
+
+
+In this article, we’ll explore **10 advanced Java Collections tricks that every senior developer should know** — explained clearly with real-world examples so students and professionals alike can benefit.
+
+1. Use Collections.emptyList(), emptySet(), emptyMap() Instead of Creating New Empty Collections
+
+Instead of creating unnecessary empty collections like this:
+
+List<String> list = new ArrayList<>();
+
+**Prefer using:**
+
+List<String> list = Collections.emptyList();
+
+### Why this is better:
+
+- **Saves memory** — uses a shared singleton instance.
+- **Immutable** — prevents accidental modification.
+- **Cleaner and more expressive** — clearly conveys intent.
+
+This approach is ideal when you want to return an empty collection safely and efficiently.
+
+### 2. Prefer List.of(), Set.of(), and Map.of() for Immutable Collections (Java 9+)
+
+Java 9 introduced convenient factory methods for creating small immutable collections:
+
+List<String> fruits = List.of("Apple", "Banana", "Mango");  
+Set<Integer> ids = Set.of(1, 2, 3);  
+Map<Integer, String> map = Map.of(1, "A", 2, "B");
+
+**Benefits:**
+
+- **Concise and readable syntax**
+- **Immutable by default** — prevents unintended changes
+- **More efficient and cleaner** than wrapping collections with  
+    Collections.unmodifiableList()
+
+Perfect for fixed configuration values, constants, and read-only datasets.
+
+### 3. Use Collections.unmodifiableList() to Build Safe APIs
+
+When exposing internal collections from APIs, never return mutable collections directly:
+
+public List<String> getItems() {  
+    return Collections.unmodifiableList(items);  
+}
+
+### Why:
+
+- Protects your internal data from modification
+- Improves **encapsulation**
+- Prevents unexpected bugs caused by external mutation
+
+This ensures your API remains **safe, predictable, and robust**.
+
+### 4. Convert Between Collections in One Line
+
+Instead of writing manual loops:
+
+for (String s : list) {  
+    set.add(s);  
+}
+
+You can convert collections cleanly using constructors:
+
+Set<String> set = new HashSet<>(list);  
+List<String> list = new ArrayList<>(set);
+
+### Advantages:
+
+- Cleaner and shorter code
+- Improved readability
+- Less boilerplate and fewer chances of errors
+
+Senior developers rely on this approach for **quick and elegant conversions**.
+
+### 5. Sort Collections Using Collections.sort() or List.sort() with Lambda
+
+**Basic Sorting:**
+
+Collections.sort(list);
+
+**Custom Sorting Using Lambda (Java 8+):**
+
+list.sort(Comparator.comparing(String::length));
+
+### Why this is better:
+
+- Clean and readable syntax
+- Flexible custom sorting logic
+- Less boilerplate code
+
+Lambda-based sorting makes your intent clear and your code concise.
+
+### 6. Use computeIfAbsent() in Maps to Avoid Manual Null Checks
+
+**Old Approach:**
+
+if (!map.containsKey(key)) {  
+    map.put(key, new ArrayList<>());  
+}  
+map.get(key).add(value);
+
+**Better Approach:**
+
+map.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
+
+### Benefits:
+
+- Cleaner and more readable
+- Avoids unnecessary map lookups
+- Prevents **NullPointerException**
+
+This is a **must-know trick** for building grouped data structures.
+
+### 7. Use Collections.frequency() to Count Occurrences
+
+**Traditional Loop:**
+
+int count = 0;  
+for (String s : list) {  
+    if (s.equals("apple")) count++;  
+}
+
+**Cleaner Way:**
+
+int count = Collections.frequency(list, "apple");
+
+### 8. Use Collections.disjoint() to Check for Non-Overlapping Collections
+
+Instead of writing nested loops:
+
+boolean noCommon = Collections.disjoint(list1, list2);
+
+### What it does:
+
+- Returns **true** if both collections have no elements in common
+- Fast and very expressive
+
+Perfect for validation checks and filtering logic.
+
+### 9. Shuffle Collections Randomly
+
+Need to randomize the order of elements?
+
+Collections.shuffle(list);
+
+### Common use cases:
+
+- Games
+- Simulations
+- Randomized test cases
+- Load balancing
+
+### 10. Use Map.merge() to Simplify Frequency Counters
+
+**Traditional Way:**
+
+if (map.containsKey(word)) {  
+    map.put(word, map.get(word) + 1);  
+} else {  
+    map.put(word, 1);  
+}
+
+**Elegant One-Liner:**
+
+map.merge(word, 1, Integer::sum);
+
+### Why senior devs love this:
+
+- Ultra-clean syntax
+- No conditionals needed
+- Perfect for word count, log analysis, and metrics
+
+
+
+ # @JsonIgnore vs @Transient
+
+**We use the @JsonIgnore annotation to specify a method or field that should be ignored during serialization and deserialization processes.** This marker annotation belongs to the [Jackson](https://www.baeldung.com/jackson) library.
+
+We often apply this annotation to exclude fields that may not be relevant or could contain sensitive information. We use it on a field or a method to mark a property we’d like to ignore.
+
+
+On the other hand, we use the @Transient annotation to indicate the [Java Persistence API] (JPA) should ignore the field when mapping objects to a database. **When we mark a field with this annotation, the JPA won’t persist the field and it won’t retrieve its value from the database.**
+
+
+
+---
+
+# Reflection API
+
+The Java Reflection API allows a program to inspect and manipulate its own internal structure, such as classes, methods, fields, and constructors, at runtime. It is primarily provided through the package and the class. 
+
+Core Components
+
+To perform reflection, you must first obtain a object, which serves as the entry point.
+
+- java.lang.Class: Represents the metadata of a class or interface.
+- java.lang.reflect.Field: Provides information about and dynamic access to a single field of a class.
+- java.lang.reflect.Method: Used to discover and invoke methods dynamically.
+- java.lang.reflect.Constructor: Enables the creation of new objects at runtime without using the keyword. 
+
+Common Use Cases
+
+Reflection is essential for building flexible and dynamic systems.
+
+- Framework Development: Modern frameworks like Spring use reflection for Dependency Injection and bean creation, while JUnit uses it to find and execute test cases marked with .
+- Bypassing Access Rules: Reflection can access and modify fields and methods by calling .
+- Dynamic Proxies: The
+    
+    Proxy
+    
+      
+    class uses reflection to create objects that implement interfaces at runtime.
+- Serialization/Deserialization: Libraries like Jackson use reflection to map Java objects to JSON or XML
+
+How to Use Reflection
+
+1. Get the Class Object: Use , , or .
+2. Access Members: Call methods like , , or on the class object.
+3. Manipulate/Invoke: Use , , or to interact with the code. 
+
+
+
+Drawbacks and Limitations
+
+While powerful, reflection should be used sparingly due to several risks.
+
+- Performance Overhead: Dynamic resolution is slower than direct calls because the JVM cannot perform certain optimizations.
+- Security Risks: It breaks encapsulation by exposing internal private members, which can lead to vulnerabilities.
+- Maintenance Difficulty: Since reflection relies on string-based names, code can break during refactoring without compile-time warnings. 
+
+  
+
+---
+
+## Stream Gatherer's
+
+# Java Stream Gatherer (Java 22+)
+
+The `Stream.Gatherer` interface, introduced in Java 22 as a preview feature (finalized in Java 23), provides a powerful way to perform custom intermediate operations on streams. It's an alternative to `collect()` but operates on element-by-element basis.
+
+## What is a Gatherer?
+
+A `Gatherer` represents a transformation of stream elements, combining concepts from:
+- **`flatMap`** - one-to-many transformation
+- **`map`** - one-to-one transformation  
+- **`filter`** - conditional inclusion
+- **`reduce`** - stateful accumulation
+
+## Core Methods of Gatherer
+
+### 1. **`initializer()`** - Creates initial state
+### 2. **`integrator()`** - Processes each element (mandatory)
+### 3. **`combiner()`** - Merges states for parallel streams
+### 4. **`finisher()`** - Final transformation after all elements
+
+## Built-in Gatherers (Java 23+)
+
+### Example 1: `fold()` - Stateful Reduction
+
+```java
+import java.util.stream.Gatherers;
+import java.util.stream.Stream;
+
+public class FoldExample {
+    public static void main(String[] args) {
+        // Running sum using fold
+        var result = Stream.of(1, 2, 3, 4, 5)
+            .gather(Gatherers.fold(() -> 0, (sum, n) -> sum + n))
+            .findFirst()
+            .orElse(0);
+        
+        System.out.println("Sum: " + result); // Sum: 15
+        
+        // Running product
+        var product = Stream.of(2, 3, 4)
+            .gather(Gatherers.fold(() -> 1, (acc, n) -> acc * n))
+            .findFirst()
+            .orElse(1);
+        
+        System.out.println("Product: " + product); // Product: 24
+    }
+}
+```
+
+### Example 2: `windowSliding()` - Fixed-size Windows
+
+```java
+public class WindowExample {
+    public static void main(String[] args) {
+        // Sliding window of size 3
+        var windows = Stream.of(1, 2, 3, 4, 5, 6)
+            .gather(Gatherers.windowSliding(3))
+            .toList();
+        
+        windows.forEach(System.out::println);
+        // Output:
+        // [1, 2, 3]
+        // [2, 3, 4]
+        // [3, 4, 5]
+        // [4, 5, 6]
+        
+        // Calculate moving average
+        var movingAvg = Stream.of(10, 20, 30, 40, 50)
+            .gather(Gatherers.windowSliding(3))
+            .map(window -> window.stream().mapToInt(Integer::intValue).average().orElse(0))
+            .toList();
+        
+        System.out.println("Moving averages: " + movingAvg);
+        // Moving averages: [20.0, 30.0, 40.0]
+    }
+}
+```
+
+### Example 3: `windowFixed()` - Non-overlapping Windows
+
+```java
+public class WindowFixedExample {
+    public static void main(String[] args) {
+        // Fixed windows of size 3
+        var batches = Stream.of(1, 2, 3, 4, 5, 6, 7, 8)
+            .gather(Gatherers.windowFixed(3))
+            .toList();
+        
+        batches.forEach(System.out::println);
+        // Output:
+        // [1, 2, 3]
+        // [4, 5, 6]
+        // [7, 8]  (last window may be smaller)
+        
+        // Process in batches
+        var batchSum = Stream.of(1, 2, 3, 4, 5, 6, 7, 8)
+            .gather(Gatherers.windowFixed(4))
+            .map(batch -> batch.stream().mapToInt(Integer::intValue).sum())
+            .toList();
+        
+        System.out.println("Batch sums: " + batchSum); // Batch sums: [10, 26]
+    }
+}
+```
+
+### Example 4: `scan()` - Cumulative Transformations
+
+```java
+public class ScanExample {
+    public static void main(String[] args) {
+        // Running sum (cumulative)
+        var runningSum = Stream.of(1, 2, 3, 4, 5)
+            .gather(Gatherers.scan(() -> 0, (sum, n) -> sum + n))
+            .toList();
+        
+        System.out.println("Running sum: " + runningSum);
+        // Running sum: [1, 3, 6, 10, 15]
+        
+        // Running maximum
+        var runningMax = Stream.of(3, 1, 4, 1, 5, 9, 2)
+            .gather(Gatherers.scan(() -> Integer.MIN_VALUE, 
+                (max, n) -> Math.max(max, n)))
+            .toList();
+        
+        System.out.println("Running max: " + runningMax);
+        // Running max: [3, 3, 4, 4, 5, 9, 9]
+    }
+}
+```
+
+## Custom Gatherer Example
+
+```java
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+import java.util.stream.Gatherer;
+
+public class CustomGathererExample {
+    
+    // Custom gatherer that groups consecutive equal elements
+    public static <T> Gatherer<T, List<T>, List<T>> groupConsecutive() {
+        return Gatherer.ofSequential(
+            // Initializer: empty list
+            (Supplier<List<T>>) ArrayList::new,
+            
+            // Integrator: process each element
+            Gatherer.Integrator.ofGreedy((state, element, downstream) -> {
+                if (state.isEmpty() || state.get(0).equals(element)) {
+                    state.add(element);
+                    return true;
+                } else {
+                    // Send current group downstream
+                    downstream.push(new ArrayList<>(state));
+                    state.clear();
+                    state.add(element);
+                    return true;
+                }
+            }),
+            
+            // Finisher: send last group
+            (state, downstream) -> {
+                if (!state.isEmpty()) {
+                    downstream.push(new ArrayList<>(state));
+                }
+            }
+        );
+    }
+    
+    public static void main(String[] args) {
+        var result = Stream.of(1, 1, 2, 2, 2, 3, 1, 1, 4)
+            .gather(groupConsecutive())
+            .toList();
+        
+        result.forEach(System.out::println);
+        // Output:
+        // [1, 1]
+        // [2, 2, 2]
+        // [3]
+        // [1, 1]
+        // [4]
+    }
+}
+```
+
+## Advanced Custom Gatherer: Distinct by Key
+
+```java
+public class DistinctByKeyExample {
+    
+    public static <T, K> Gatherer<T, Map<K, T>, T> distinctByKey(
+            java.util.function.Function<? super T, ? extends K> keyExtractor) {
+        
+        return Gatherer.of(
+            // Initializer
+            HashMap::new,
+            
+            // Integrator
+            Gatherer.Integrator.ofGreedy((state, element, downstream) -> {
+                K key = keyExtractor.apply(element);
+                if (!state.containsKey(key)) {
+                    state.put(key, element);
+                    downstream.push(element);
+                }
+                return true;
+            }),
+            
+            // Combiner for parallel streams
+            (left, right) -> {
+                left.putAll(right);
+                return left;
+            },
+            
+            // Finisher (no-op)
+            (state, downstream) -> {}
+        );
+    }
+    
+    public static void main(String[] args) {
+        record Person(String name, int age) {}
+        
+        var people = Stream.of(
+            new Person("Alice", 30),
+            new Person("Bob", 25),
+            new Person("Alice", 35),  // Duplicate name
+            new Person("Charlie", 30), // Duplicate age
+            new Person("David", 25)
+        );
+        
+        // Distinct by name
+        var uniqueByName = people
+            .gather(distinctByKey(Person::name))
+            .toList();
+        
+        uniqueByName.forEach(System.out::println);
+        // Output:
+        // Person[name=Alice, age=30]
+        // Person[name=Bob, age=25]
+        // Person[name=Charlie, age=30]
+        // Person[name=David, age=25]
+        // (Alice with age 35 is filtered out)
+    }
+}
+```
+
+## Gatherer vs Collector Comparison
+
+```java
+public class ComparisonExample {
+    public static void main(String[] args) {
+        // Collector: terminal operation, produces single result
+        var sum = Stream.of(1, 2, 3, 4, 5)
+            .collect(Collectors.summingInt(Integer::intValue));
+        // Result: 15
+        
+        // Gatherer: intermediate operation, produces stream
+        var runningSum = Stream.of(1, 2, 3, 4, 5)
+            .gather(Gatherers.scan(() -> 0, (s, n) -> s + n))
+            .collect(Collectors.toList());
+        // Result: [1, 3, 6, 10, 15]
+    }
+}
+```
+
+## Key Differences from Other Operations
+
+| Operation | Purpose |
+|-----------|---------|
+| **`map`** | One-to-one, stateless |
+| **`flatMap`** | One-to-many, stateless |
+| **`filter`** | Selective inclusion, stateless |
+| **`reduce`** | Terminal, single result |
+| **`collect`** | Terminal, mutable result |
+| **`gather`** | **Intermediate, stateful, one-to-many** |
+
+## Performance Considerations
+
+```java
+public class PerformanceExample {
+    public static void main(String[] args) {
+        // Prefer built-in gatherers when possible
+        var efficient = Stream.generate(Math::random)
+            .limit(1_000_000)
+            .gather(Gatherers.windowSliding(100))
+            .limit(10)  // Short-circuiting works!
+            .toList();
+        
+        // Custom gatherers can be optimized for parallel processing
+        var parallel = Stream.of(1, 2, 3, 4, 5, 6, 7, 8)
+            .parallel()
+            .gather(new ParallelFriendlyGatherer<>())
+            .toList();
+    }
+}
+```
+
+## Summary
+
+**Gatherers** excel at:
+- Stateful transformations
+- Element grouping and windowing
+- Cumulative operations
+- Both one-to-one and one-to-many mappings
+- Parallel execution support
+
+They fill the gap between simple stateless operations (`map`, `filter`) and terminal operations (`collect`, `reduce`), providing a flexible intermediate operation pattern.
+
+---------
+

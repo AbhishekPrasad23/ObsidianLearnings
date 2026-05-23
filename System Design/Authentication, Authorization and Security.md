@@ -1,4 +1,15 @@
-Cookies vs Sessions — What’s the Difference?  
+
+
+| 1   | [[#Cookies vs Sessions — What’s the Difference?]] |
+| --- | ------------------------------------------------- |
+| 2   | [[#JWT vs Session]]                               |
+|     |                                                   |
+|     |                                                   |
+|     |                                                   |
+
+
+
+## Cookies vs Sessions — What’s the Difference?  
   
 A solid understanding of HTTP’s intrinsic statelessness, along with proficient use of sessions and cookies, is important for web development.  
   
@@ -46,14 +57,27 @@ Secure and effective web development requires a solid grasp of HTTP's statelessn
   
 Adhering to security best practices helps ensure that our applications meet performance and privacy standards.  
   
-~~  
-Thanks to our partner Udacity who keeps our content free to the community.  
-  
-𝗪𝗮𝗻𝘁 𝘁𝗼 𝗯𝘂𝗶𝗹𝗱 𝗔𝗜 𝘀𝘆𝘀𝘁𝗲𝗺𝘀 𝘁𝗵𝗮𝘁 𝗴𝗼 𝗯𝗲𝘆𝗼𝗻𝗱 𝗷𝘂𝘀𝘁 𝗽𝗿𝗼𝗺𝗽𝘁 𝗰𝗵𝗮𝗶𝗻𝗶𝗻𝗴?  
-Learn to design, orchestrate, and deploy agentic AI with Udacity’s new program.  
-  
-Check it out here: [https://lnkd.in/gu9CXNVR](https://lnkd.in/gu9CXNVR)
 
-Activate to view larger image,
+  
+---
 
-![No alternative text description for this image](https://media.licdn.com/dms/image/v2/D5622AQEKb5KIgddtJw/feedshare-shrink_800/B56ZithYZUHUAg-/0/1755257941195?e=1758153600&v=beta&t=ax1nChAOl69xJFbeNfqWoWC9rOOWT8KAkQ-fi1sQp_0)
+
+## JWT vs Session
+
+The main differences between JWT and Session are as follows:
+
+- **The storage locations differ** : Session typically stores user session information on the server side, while JWT stores the information on the client side.
+- **The state management mechanisms differ** : Session is based on a server-side state mechanism, requiring the server to store session state; JWT is stateless, with all information contained in the token, and the server does not need to store any state.
+- **Privacy differs** : Because JWT information is directly exposed to the user, sensitive information should not be stored in JWT. Sessions, on the other hand, offer relatively better privacy because they are maintained only on the server side.
+- **Differences in scalability and performance** : JWT is well-suited for distributed systems because it does not depend on server-side state. For large-scale distributed systems, JWT can significantly reduce server resource consumption and improve system responsiveness.
+
+## Challenges with JWT
+
+Despite the many advantages of JWT, there are also some challenges:
+
+- **Size Limitation** : Because JWTs are sent as HTTP headers, their size is limited. If a JWT contains too much data, it may cause the request headers to become excessively long. The solution is to keep JWTs as concise as possible, containing only the necessary information.
+- **Token revocation issue** : Once a JWT is issued, it cannot be easily revoked unless it expires.
+- **Security considerations** : Although JWT itself supports signing and encryption, if the keys are compromised, it will lead to serious security risks. Therefore, ensuring secure key management and regular updates is crucial.
+
+
+
